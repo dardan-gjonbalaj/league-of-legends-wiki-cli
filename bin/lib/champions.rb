@@ -1,11 +1,9 @@
 require_relative "../lib/scraper.rb"
 require_relative "../lib/CLI.rb"
-require_relative "../info/champTypes.rb"
 require 'open-uri'
 #require nokogiri
 
 class Champion
-    include ChampTypes
     attr_accessor :name, :title, :class_type, :style, :abilities 
     @@all = []
 
@@ -15,18 +13,10 @@ class Champion
         @class_type = class_type 
         @abilities = abilities
         @@all << self
-        #abilityKeys
     end
 
     def self.all
         @@all
-    end
-
-    def abilityKeys
-        @abilities[1].prepend("Q: ")    
-        @abilities[2].prepend("W: ")  
-        @abilities[3].prepend("E: ")  
-        @abilities[4].prepend("R: ")  
     end
 
 end #end of class

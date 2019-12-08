@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/CLI.rb"
+
+
+CLI.new.run

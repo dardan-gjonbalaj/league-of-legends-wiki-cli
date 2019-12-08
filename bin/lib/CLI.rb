@@ -5,7 +5,6 @@ require 'pry'
 class CLI 
     def run
         scraper = Scraper.new
-        scraper.getChamps
         input = ""
         while input!="exit"
            
@@ -23,13 +22,11 @@ class CLI
                 when 1 
                     puts "List Champion Classes and choose from them"
                 when 2
-                    puts "Find a champion by name"
-                    name = gets.strip
-                    Champion.find_by_name(name)
+                    puts "Find a champion by first letter"
                 when 3
                     puts "List ALL champions by name"
-                    
-                    Champion.all
+                    scraper.getChamps
+                    Student.all
                 when 4
                     puts "exit"
                     break

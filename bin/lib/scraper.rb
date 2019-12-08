@@ -43,7 +43,7 @@ class Scraper
             getChampAbilities
             #binding.pry
             createChampions
-            binding.pry
+            
            
     end
 
@@ -67,10 +67,10 @@ class Scraper
 
     def createChampions
             temp = ""
-        @all_champs.each_with_index { |(key,value),index| 
-            temp = @all_champs[:name][index]
-           # binding.pry
-            Champion.new(temp, @all_champs[:title][index], @all_champs[:class_type][index], @all_champs[:abilities][:"#{temp}"])   
+            binding.pry
+        @all_champs.each.with_index(0) { |champ,index| 
+            temp = champ[:name][index]
+            Champion.new(champ[:name][index], champ[:title][index], champ[:class_type][index], champ[:abilities][:"#{temp}"])
         }
     end
 
