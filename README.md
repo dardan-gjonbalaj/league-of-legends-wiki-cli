@@ -1,4 +1,4 @@
-# League
+# Project 1:CLI - League of Legends Wiki scraping!
 
 This is a very simple gem that scrapes for champion information + abiltiies on request. Also allows to choose champions based of their role!
 
