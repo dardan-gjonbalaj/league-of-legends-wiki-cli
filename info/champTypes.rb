@@ -10,9 +10,6 @@ module ChampTypes
         def find_by_name(name, abilities = nil)
             self.all.detect { |champ| 
             if champ.name == name
-                #if abilities && champ.abilities.empty?
-                #champ.abilities << abilities
-                #end
                 return champ
             end
             }
@@ -33,12 +30,5 @@ module ChampTypes
                 champ.role
         }.uniq.sort
         end
-
-    end
-    
-    module InstanceMethods
-         
-    
-
-     end
+    end    
 end

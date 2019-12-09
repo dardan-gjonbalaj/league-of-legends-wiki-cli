@@ -34,11 +34,8 @@ class Scraper
             }
         }
            
-       # getChampAbilities("Aatrox")
-        #getChamps
         createChampions
-        #binding.pry
-           
+          
     end
     
     def createChampions

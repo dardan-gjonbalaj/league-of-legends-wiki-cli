@@ -87,9 +87,9 @@ class CLI
                     champ.abilities << getAbilities(champ.name)
                 end
         }
-        puts "would you like to select a champ from this list? yes/no"
+        puts " \n Would you like to select a champ from this list? yes/no \n"
             choice = gets.strip
-            if choice == "yes"
+            if choice == "yes" || choice == "1" || choice == "y"
                 puts "Which number?"
                 num = gets.strip.to_i
                 num = 1 if num <= 0 || num > get_roles.size
