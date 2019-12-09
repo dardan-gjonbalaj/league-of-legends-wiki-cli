@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # League
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/league`. To experiment with that code, run `bin/console` for an interactive prompt.
@@ -24,7 +22,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This simple CLI program will pull the complete list of Champions with their title and "class type/role" from 
+https://leagueoflegends.fandom.com/wiki/List_of_champions. 
+The abiltiies [Passive/Innate, "Q", "W", "E", "R/Ultimate"] are taken the specific champion page  and is listed in an array inside the champion class https://leagueoflegends.fandom.com/wiki/"#{champion}"/Abilities
 
 ## Development
 
@@ -39,5 +39,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
->>>>>>> a274a65df34e4fb6455499d190157347d0dd5de8
 # league-of-legends-wiki-cli

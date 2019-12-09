@@ -2,32 +2,39 @@ require_relative "../lib/scraper.rb"
 require_relative "../lib/CLI.rb"
 require_relative "../info/champTypes.rb"
 require 'open-uri'
-#require nokogiri
+#require 'nokogiri'
 
 class Champion
-    include ChampTypes
-    attr_accessor :name, :title, :class_type, :style, :abilities 
+    extend ChampTypes::ClassMethods
+    #include ChampTypes::InstanceMethods
+    attr_accessor :name, :title, :role, :abilities
     @@all = []
 
-    def initialize(name,title,class_type,abilities)
+    def initialize(name,title,role)
         @name = name
         @title = title
-        @class_type = class_type 
-        @abilities = abilities
+        @role = role 
+        @abilities = []
         @@all << self
-        #abilityKeys
+       # self.abilityKeys
     end
 
     def self.all
         @@all
     end
 
-    def abilityKeys
-        @abilities[1].prepend("Q: ")    
-        @abilities[2].prepend("W: ")  
-        @abilities[3].prepend("E: ")  
-        @abilities[4].prepend("R: ")  
-    end
+    # def self.add_Abilities
+    #     array = Scraper.getChampAbilities(@name)
+    #     @abilities << array
+    #     @abilities
+    # end
+
+    # def abilityKeys
+    #     @abilities[1].prepend("Q: ")    
+    #     @abilities[2].prepend("W: ")  
+    #     @abilities[3].prepend("E: ")  
+    #     @abilities[4].prepend("R: ")  
+    # end
 
 end #end of class
 
@@ -44,7 +51,7 @@ end #end of class
 #webpage for champ
 #list_of_champs.css("table.wikitable.sortable tr td a").attribute("href").value
 
-#class_type
+#role
 #list_of_champs.css("table.wikitable.sortable tr td[2] a").attribute("href").value
 #list_of_champs.css("table.wikitable.sortable tr td[2] span").attribute("data-param").value
 #site.css("table.wikitable.sortable tr td[2] span").each {|x| puts x.attribute("data-param").text}

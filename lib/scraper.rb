@@ -11,24 +11,20 @@ class Scraper
     def initialize
       #  lolwiki = "https://leagueoflegends.fandom.com/wiki"
         @champions_url = []
-        @all_champs = {:name => [], :title => [], :class_type => [], :abilities => {}}
+        @all_champs = {:name => [], :title => [], :role => []} 
+        #@abilities = []
        
     end
 
     def getChamps
-      #  BASE_PATH,champions,all_champs
         site = Nokogiri::HTML(open(BASE_PATH + "/wiki/List_of_champions"))
-        #site.css("table.wikitable.sortable tr td:first").each {|x| puts x.attribute("data-sort-value").text}
-        #site.css("table.wikitable.sortable tr td:first a").each {|x| puts x.attribute("href").value}
-        
 
         site.css("table.wikitable.sortable").each { |champ|
             champ.css("tr td:first").each_with_index { |names,index|
                @all_champs[:name] << names.attribute("data-sort-value").value
-                # @all_champs[:name][index] = names.attribute("data-sort-value").value
             }
             champ.css("tr td[2] span").each.with_index(0) { |types,index| 
-                @all_champs[:class_type] << types.attribute("data-param").text 
+                @all_champs[:role] << types.attribute("data-param").text 
             }      
             champ.css("tr td:first span:first:first a:first:first").each {|url| 
                 @champions_url << url.attribute("href").text 
@@ -38,41 +34,41 @@ class Scraper
                 @all_champs[:title].delete("")
             }
         }
-
-           # binding.pry
-            getChampAbilities
-            #binding.pry
-            createChampions
-            binding.pry
+           
+       # getChampAbilities("Aatrox")
+        #getChamps
+        createChampions
+        #binding.pry
            
     end
-
-    def getChampAbilities
-       # @champions_url.uniq
-       # binding.pry
-        temp =""
-       
-       #binding.pry
-       @champions_url.uniq.each.with_index(0) { |champ, index|
-         champ_site = Nokogiri::HTML(open(BASE_PATH + "#{champ}/Abilities"))
-            #puts champ_site.title
-            @all_champs[:abilities][:"#{@all_champs[:name][index]}"] = []
-            temp = "#{@all_champs[:name][index]}"
-                champ_site.css(".skill .ability-info-container").each.with_index(0) { |ability,index| 
-                  
-                @all_champs[:abilities][:"#{temp}"] << ability.css("tr td p").text
-            }
-             }
-    end
-
+    
     def createChampions
-            temp = ""
-        @all_champs.each_with_index { |(key,value),index| 
+        temp = ""
+        index = 0 
+        while index < @all_champs[:name].size do
             temp = @all_champs[:name][index]
-           # binding.pry
-            Champion.new(temp, @all_champs[:title][index], @all_champs[:class_type][index], @all_champs[:abilities][:"#{temp}"])   
-        }
+            Champion.new(temp, @all_champs[:title][index], @all_champs[:role][index])   
+            index +=1
+        end
     end
 
-        
+    def getChampAbilities(name)
+        abilities = []
+        name = "/wiki/" << name
+        binding.pry
+        if @champions_url.uniq.include?(name)
+            champ_site = Nokogiri::HTML(open(BASE_PATH + "#{name}/Abilities"))
+            puts champ_site.title
+            champ_site.css(".skill .ability-info-container").each.with_index(0) { |ability,index|    
+                 abilities << ability.css("tr td p").text
+        }
+                return appendKeys(abilities)   
+        else    
+            puts "Champion not found!"
+        end 
+    end
+
+    
 end #end of class 
+
+
