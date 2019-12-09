@@ -9,10 +9,9 @@ class Scraper
          
 
     def initialize
-      #  lolwiki = "https://leagueoflegends.fandom.com/wiki"
         @champions_url = []
         @all_champs = {:name => [], :title => [], :role => []} 
-        #@abilities = []
+        
        
     end
 
@@ -54,21 +53,38 @@ class Scraper
 
     def getChampAbilities(name)
         abilities = []
-        name = "/wiki/" << name
-        binding.pry
+        puts name
+        
+        if name.include?("'")
+            name = "/wiki/" << name.gsub("'","%27")
+        elsif name.include?(" ")
+            name = "/wiki/" << name.gsub(" ","_")
+        elsif name.include?(".")
+            name = "/wiki/" << name.gsub(".","._")
+        else 
+            name = "/wiki/" << name
+        end
+       
         if @champions_url.uniq.include?(name)
             champ_site = Nokogiri::HTML(open(BASE_PATH + "#{name}/Abilities"))
             puts champ_site.title
             champ_site.css(".skill .ability-info-container").each.with_index(0) { |ability,index|    
                  abilities << ability.css("tr td p").text
         }
-                return appendKeys(abilities)   
+            return appendKeys(abilities)   
         else    
             puts "Champion not found!"
         end 
     end
 
-    
+    def appendKeys(array)
+        array[0].prepend("  ")
+        array[1].prepend("  Q:  ")
+        array[2].prepend("  W:  ")
+        array[3].prepend("  E:  ")
+        array[4].prepend("  R:  ")
+        return array
+    end
 end #end of class 
 
 
