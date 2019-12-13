@@ -59,7 +59,7 @@ class Scraper
       puts champ_site.title
       binding.pry
       champ_site.css('.skill .ability-info-container').each.with_index(0) do |ability, _index|
-        abilities << ability.css('tr[1] td:nth-child(1)').text + ability.css('tr td p').text
+        abilities << ability.css('tr[1] td:nth-child(1)').text.gsub(/\R+/, "|| \n") + ability.css('tr td p').text
       end
        # abilities << 
       append_keys(abilities)
@@ -69,11 +69,11 @@ class Scraper
   end
 
   def append_keys(array)
-    array[0].prepend('    ')
-    array[1].prepend('    Q:  ')
-    array[2].prepend('    W:  ')
-    array[3].prepend('    E:  ')
-    array[4].prepend('    R:  ')
+    array[0].prepend('|         ||')
+    array[1].prepend('|    Q:   ||')
+    array[2].prepend('|    W:   ||')
+    array[3].prepend('|    E:   ||')
+    array[4].prepend('|    R:   ||')
     array
   end
 end
