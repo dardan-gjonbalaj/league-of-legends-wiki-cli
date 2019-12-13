@@ -57,7 +57,6 @@ class Scraper
     if @champions_url.uniq.include?(name)
       champ_site = Nokogiri::HTML(open(BASE_PATH + "#{name}/Abilities"))
       puts champ_site.title
-      binding.pry
       champ_site.css('.skill .ability-info-container').each.with_index(0) do |ability, _index|
         abilities << ability.css('tr[1] td:nth-child(1)').text.gsub(/\R+/, "|| \n") + ability.css('tr td p').text
       end
