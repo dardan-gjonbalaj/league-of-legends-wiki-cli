@@ -68,7 +68,7 @@ class Scraper
   end
 
   def append_keys(array)
-    array[0].prepend('|         ||')
+    array[0].prepend('         ||')
     array[1].prepend('|    Q:   ||')
     array[2].prepend('|    W:   ||')
     array[3].prepend('|    E:   ||')
